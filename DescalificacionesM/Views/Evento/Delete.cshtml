@@ -1,0 +1,47 @@
+﻿@model DescalificacionesM.Models.Evento
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Evento</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Distancia)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Distancia)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Rama.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rama.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Categoria.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Categoria.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Estilo.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Estilo.Descripcion)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

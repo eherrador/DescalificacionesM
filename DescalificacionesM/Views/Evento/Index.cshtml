@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DescalificacionesM.Models.Evento>
+
+@{
+    ViewBag.Title = "Eventos";
+}
+
+@*<h2>Index</h2>*@
+
+<p>
+    @Html.ActionLink("Nuevo Evento", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Distancia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rama.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estilo.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Distancia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rama.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estilo.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.EventoID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.EventoID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.EventoID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<ul data-role="listview" data-inset="true">
+    @*<li data-role="list-divider">Navigation</li>*@
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+</ul>

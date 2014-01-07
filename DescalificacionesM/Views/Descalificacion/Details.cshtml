@@ -1,0 +1,43 @@
+﻿@model DescalificacionesM.Models.Descalificacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Descalificacion</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CodigoFINA1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CodigoFINA1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CodigoFINA2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CodigoFINA2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Estilo.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Estilo.Descripcion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DescalificacionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

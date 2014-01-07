@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c847dbba3d5472897c0d548fa654c37" Name="Diagram1">
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Categoria" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Competencia" Width="1.5" PointX="3.125" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Descalificacion" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Estilo" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Evento" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Heat" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Nadador" Width="1.5" PointX="5.625" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Prueba" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DescalificacionesFMNModel.Rama" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Evento_dbo_Categoria_CategoriaID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Prueba_dbo_Competencia_CompetenciaID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Descalificacion_dbo_Estilo_EstiloID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Evento_dbo_Estilo_EstiloID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Evento_dbo_Rama_RamaID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Prueba_dbo_Evento_EventoID" ManuallyRouted="false" />
+        <AssociationConnector Association="DescalificacionesFMNModel.FK_dbo_Heat_dbo_Prueba_PruebaID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

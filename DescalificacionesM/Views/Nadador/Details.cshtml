@@ -1,0 +1,36 @@
+﻿@model DescalificacionesM.Models.Nadador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Nadador</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HeatID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HeatID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Descalificacion.CodigoFINA1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descalificacion.CodigoFINA1)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.NadadorID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

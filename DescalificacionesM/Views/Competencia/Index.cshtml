@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DescalificacionesM.Models.Competencia>
+
+@{
+    ViewBag.Title = "Competencias";
+}
+
+@*<h2>Index</h2>*@
+
+<p>
+    @Html.ActionLink("Nueva Competencia", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sede)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sede)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.CompetenciaID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.CompetenciaID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.CompetenciaID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<ul data-role="listview" data-inset="true">
+    @*<li data-role="list-divider">Navigation</li>*@
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+</ul>

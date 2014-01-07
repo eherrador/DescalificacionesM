@@ -1,0 +1,29 @@
+﻿@model DescalificacionesM.Models.Heat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Heat</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Prueba.PruebaID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prueba.PruebaID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.HeatID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

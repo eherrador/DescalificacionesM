@@ -1,0 +1,43 @@
+﻿@model DescalificacionesM.Models.Evento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Evento</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Distancia)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Distancia)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Rama.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rama.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Categoria.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Categoria.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Estilo.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Estilo.Descripcion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.EventoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

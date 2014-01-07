@@ -1,0 +1,29 @@
+﻿@model DescalificacionesM.Models.Prueba
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Prueba</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Competencia.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Competencia.Descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Evento.Distancia)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Evento.Distancia)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PruebaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

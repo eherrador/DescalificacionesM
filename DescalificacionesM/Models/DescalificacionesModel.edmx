@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DescalificacionesFMNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CategoriaID" />
+          </Key>
+          <Property Name="CategoriaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Competencia">
+          <Key>
+            <PropertyRef Name="CompetenciaID" />
+          </Key>
+          <Property Name="CompetenciaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" />
+          <Property Name="Sede" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Descalificacion">
+          <Key>
+            <PropertyRef Name="DescalificacionID" />
+          </Key>
+          <Property Name="DescalificacionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoFINA1" Type="nvarchar" MaxLength="2" />
+          <Property Name="CodigoFINA2" Type="nvarchar" MaxLength="10" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="150" />
+          <Property Name="EstiloID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estilo">
+          <Key>
+            <PropertyRef Name="EstiloID" />
+          </Key>
+          <Property Name="EstiloID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="EventoID" />
+          </Key>
+          <Property Name="EventoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Distancia" Type="nvarchar" MaxLength="5" />
+          <Property Name="RamaID" Type="int" Nullable="false" />
+          <Property Name="CategoriaID" Type="int" Nullable="false" />
+          <Property Name="EstiloID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Heat">
+          <Key>
+            <PropertyRef Name="HeatID" />
+          </Key>
+          <Property Name="HeatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="5" />
+          <Property Name="PruebaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nadador">
+          <Key>
+            <PropertyRef Name="NadadorID" />
+          </Key>
+          <Property Name="NadadorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="HeatID" Type="int" Nullable="false" />
+          <Property Name="DescalificacionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prueba">
+          <Key>
+            <PropertyRef Name="PruebaID" />
+          </Key>
+          <Property Name="PruebaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetenciaID" Type="int" Nullable="false" />
+          <Property Name="EventoID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rama">
+          <Key>
+            <PropertyRef Name="RamaID" />
+          </Key>
+          <Property Name="RamaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_dbo_Descalificacion_dbo_Estilo_EstiloID">
+          <End Role="Estilo" Type="Self.Estilo" Multiplicity="1" />
+          <End Role="Descalificacion" Type="Self.Descalificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estilo">
+              <PropertyRef Name="EstiloID" />
+            </Principal>
+            <Dependent Role="Descalificacion">
+              <PropertyRef Name="EstiloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Evento_dbo_Categoria_CategoriaID">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CategoriaID" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="CategoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Evento_dbo_Estilo_EstiloID">
+          <End Role="Estilo" Type="Self.Estilo" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estilo">
+              <PropertyRef Name="EstiloID" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="EstiloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Evento_dbo_Rama_RamaID">
+          <End Role="Rama" Type="Self.Rama" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rama">
+              <PropertyRef Name="RamaID" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="RamaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Heat_dbo_Prueba_PruebaID">
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="1" />
+          <End Role="Heat" Type="Self.Heat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prueba">
+              <PropertyRef Name="PruebaID" />
+            </Principal>
+            <Dependent Role="Heat">
+              <PropertyRef Name="PruebaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID">
+          <End Role="Descalificacion" Type="Self.Descalificacion" Multiplicity="1" />
+          <End Role="Nadador" Type="Self.Nadador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descalificacion">
+              <PropertyRef Name="DescalificacionID" />
+            </Principal>
+            <Dependent Role="Nadador">
+              <PropertyRef Name="DescalificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Prueba_dbo_Competencia_CompetenciaID">
+          <End Role="Competencia" Type="Self.Competencia" Multiplicity="1" />
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competencia">
+              <PropertyRef Name="CompetenciaID" />
+            </Principal>
+            <Dependent Role="Prueba">
+              <PropertyRef Name="CompetenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Prueba_dbo_Evento_EventoID">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="EventoID" />
+            </Principal>
+            <Dependent Role="Prueba">
+              <PropertyRef Name="EventoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DescalificacionesFMNModelStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competencia" EntityType="Self.Competencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Descalificacion" EntityType="Self.Descalificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estilo" EntityType="Self.Estilo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Heat" EntityType="Self.Heat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nadador" EntityType="Self.Nadador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prueba" EntityType="Self.Prueba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rama" EntityType="Self.Rama" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Descalificacion_dbo_Estilo_EstiloID" Association="Self.FK_dbo_Descalificacion_dbo_Estilo_EstiloID">
+            <End Role="Estilo" EntitySet="Estilo" />
+            <End Role="Descalificacion" EntitySet="Descalificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Evento_dbo_Categoria_CategoriaID" Association="Self.FK_dbo_Evento_dbo_Categoria_CategoriaID">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Evento_dbo_Estilo_EstiloID" Association="Self.FK_dbo_Evento_dbo_Estilo_EstiloID">
+            <End Role="Estilo" EntitySet="Estilo" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Evento_dbo_Rama_RamaID" Association="Self.FK_dbo_Evento_dbo_Rama_RamaID">
+            <End Role="Rama" EntitySet="Rama" />
+            <End Role="Evento" EntitySet="Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Heat_dbo_Prueba_PruebaID" Association="Self.FK_dbo_Heat_dbo_Prueba_PruebaID">
+            <End Role="Prueba" EntitySet="Prueba" />
+            <End Role="Heat" EntitySet="Heat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID" Association="Self.FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID">
+            <End Role="Descalificacion" EntitySet="Descalificacion" />
+            <End Role="Nadador" EntitySet="Nadador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Prueba_dbo_Competencia_CompetenciaID" Association="Self.FK_dbo_Prueba_dbo_Competencia_CompetenciaID">
+            <End Role="Competencia" EntitySet="Competencia" />
+            <End Role="Prueba" EntitySet="Prueba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Prueba_dbo_Evento_EventoID" Association="Self.FK_dbo_Prueba_dbo_Evento_EventoID">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="Prueba" EntitySet="Prueba" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DescalificacionesFMNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CategoriaID" />
+          </Key>
+          <Property Name="CategoriaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Eventoes" Relationship="Self.FK_dbo_Evento_dbo_Categoria_CategoriaID" FromRole="Categoria" ToRole="Evento" />
+        </EntityType>
+        <EntityType Name="Competencia">
+          <Key>
+            <PropertyRef Name="CompetenciaID" />
+          </Key>
+          <Property Name="CompetenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Sede" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pruebas" Relationship="Self.FK_dbo_Prueba_dbo_Competencia_CompetenciaID" FromRole="Competencia" ToRole="Prueba" />
+        </EntityType>
+        <EntityType Name="Descalificacion">
+          <Key>
+            <PropertyRef Name="DescalificacionID" />
+          </Key>
+          <Property Name="DescalificacionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoFINA1" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoFINA2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EstiloID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estilo" Relationship="Self.FK_dbo_Descalificacion_dbo_Estilo_EstiloID" FromRole="Descalificacion" ToRole="Estilo" />
+          <NavigationProperty Name="Nadadors" Relationship="Self.FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID" FromRole="Descalificacion" ToRole="Nadador" />
+        </EntityType>
+        <EntityType Name="Estilo">
+          <Key>
+            <PropertyRef Name="EstiloID" />
+          </Key>
+          <Property Name="EstiloID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Descalificacions" Relationship="Self.FK_dbo_Descalificacion_dbo_Estilo_EstiloID" FromRole="Estilo" ToRole="Descalificacion" />
+          <NavigationProperty Name="Eventoes" Relationship="Self.FK_dbo_Evento_dbo_Estilo_EstiloID" FromRole="Estilo" ToRole="Evento" />
+        </EntityType>
+        <EntityType Name="Evento">
+          <Key>
+            <PropertyRef Name="EventoID" />
+          </Key>
+          <Property Name="EventoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Distancia" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="RamaID" Type="Int32" Nullable="false" />
+          <Property Name="CategoriaID" Type="Int32" Nullable="false" />
+          <Property Name="EstiloID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_dbo_Evento_dbo_Categoria_CategoriaID" FromRole="Evento" ToRole="Categoria" />
+          <NavigationProperty Name="Estilo" Relationship="Self.FK_dbo_Evento_dbo_Estilo_EstiloID" FromRole="Evento" ToRole="Estilo" />
+          <NavigationProperty Name="Rama" Relationship="Self.FK_dbo_Evento_dbo_Rama_RamaID" FromRole="Evento" ToRole="Rama" />
+          <NavigationProperty Name="Pruebas" Relationship="Self.FK_dbo_Prueba_dbo_Evento_EventoID" FromRole="Evento" ToRole="Prueba" />
+        </EntityType>
+        <EntityType Name="Heat">
+          <Key>
+            <PropertyRef Name="HeatID" />
+          </Key>
+          <Property Name="HeatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="PruebaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Prueba" Relationship="Self.FK_dbo_Heat_dbo_Prueba_PruebaID" FromRole="Heat" ToRole="Prueba" />
+        </EntityType>
+        <EntityType Name="Nadador">
+          <Key>
+            <PropertyRef Name="NadadorID" />
+          </Key>
+          <Property Name="NadadorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HeatID" Type="Int32" Nullable="false" />
+          <Property Name="DescalificacionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Descalificacion" Relationship="Self.FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID" FromRole="Nadador" ToRole="Descalificacion" />
+        </EntityType>
+        <EntityType Name="Prueba">
+          <Key>
+            <PropertyRef Name="PruebaID" />
+          </Key>
+          <Property Name="PruebaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetenciaID" Type="Int32" Nullable="false" />
+          <Property Name="EventoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competencia" Relationship="Self.FK_dbo_Prueba_dbo_Competencia_CompetenciaID" FromRole="Prueba" ToRole="Competencia" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK_dbo_Prueba_dbo_Evento_EventoID" FromRole="Prueba" ToRole="Evento" />
+          <NavigationProperty Name="Heats" Relationship="Self.FK_dbo_Heat_dbo_Prueba_PruebaID" FromRole="Prueba" ToRole="Heat" />
+        </EntityType>
+        <EntityType Name="Rama">
+          <Key>
+            <PropertyRef Name="RamaID" />
+          </Key>
+          <Property Name="RamaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Eventoes" Relationship="Self.FK_dbo_Evento_dbo_Rama_RamaID" FromRole="Rama" ToRole="Evento" />
+        </EntityType>
+        <Association Name="FK_dbo_Evento_dbo_Categoria_CategoriaID">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CategoriaID" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="CategoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Prueba_dbo_Competencia_CompetenciaID">
+          <End Role="Competencia" Type="Self.Competencia" Multiplicity="1" />
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competencia">
+              <PropertyRef Name="CompetenciaID" />
+            </Principal>
+            <Dependent Role="Prueba">
+              <PropertyRef Name="CompetenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Descalificacion_dbo_Estilo_EstiloID">
+          <End Role="Estilo" Type="Self.Estilo" Multiplicity="1" />
+          <End Role="Descalificacion" Type="Self.Descalificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estilo">
+              <PropertyRef Name="EstiloID" />
+            </Principal>
+            <Dependent Role="Descalificacion">
+              <PropertyRef Name="EstiloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID">
+          <End Role="Descalificacion" Type="Self.Descalificacion" Multiplicity="1" />
+          <End Role="Nadador" Type="Self.Nadador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Descalificacion">
+              <PropertyRef Name="DescalificacionID" />
+            </Principal>
+            <Dependent Role="Nadador">
+              <PropertyRef Name="DescalificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Evento_dbo_Estilo_EstiloID">
+          <End Role="Estilo" Type="Self.Estilo" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estilo">
+              <PropertyRef Name="EstiloID" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="EstiloID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Evento_dbo_Rama_RamaID">
+          <End Role="Rama" Type="Self.Rama" Multiplicity="1" />
+          <End Role="Evento" Type="Self.Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rama">
+              <PropertyRef Name="RamaID" />
+            </Principal>
+            <Dependent Role="Evento">
+              <PropertyRef Name="RamaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Prueba_dbo_Evento_EventoID">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="EventoID" />
+            </Principal>
+            <Dependent Role="Prueba">
+              <PropertyRef Name="EventoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Heat_dbo_Prueba_PruebaID">
+          <End Role="Prueba" Type="Self.Prueba" Multiplicity="1" />
+          <End Role="Heat" Type="Self.Heat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prueba">
+              <PropertyRef Name="PruebaID" />
+            </Principal>
+            <Dependent Role="Heat">
+              <PropertyRef Name="PruebaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DescalificacionesFMNEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Competencias" EntityType="Self.Competencia" />
+          <EntitySet Name="Descalificacions" EntityType="Self.Descalificacion" />
+          <EntitySet Name="Estiloes" EntityType="Self.Estilo" />
+          <EntitySet Name="Eventoes" EntityType="Self.Evento" />
+          <EntitySet Name="Heats" EntityType="Self.Heat" />
+          <EntitySet Name="Nadadors" EntityType="Self.Nadador" />
+          <EntitySet Name="Pruebas" EntityType="Self.Prueba" />
+          <EntitySet Name="Ramas" EntityType="Self.Rama" />
+          <AssociationSet Name="FK_dbo_Evento_dbo_Categoria_CategoriaID" Association="Self.FK_dbo_Evento_dbo_Categoria_CategoriaID">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="Evento" EntitySet="Eventoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Prueba_dbo_Competencia_CompetenciaID" Association="Self.FK_dbo_Prueba_dbo_Competencia_CompetenciaID">
+            <End Role="Competencia" EntitySet="Competencias" />
+            <End Role="Prueba" EntitySet="Pruebas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Descalificacion_dbo_Estilo_EstiloID" Association="Self.FK_dbo_Descalificacion_dbo_Estilo_EstiloID">
+            <End Role="Estilo" EntitySet="Estiloes" />
+            <End Role="Descalificacion" EntitySet="Descalificacions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID" Association="Self.FK_dbo_Nadador_dbo_Descalificacion_DescalificacionID">
+            <End Role="Descalificacion" EntitySet="Descalificacions" />
+            <End Role="Nadador" EntitySet="Nadadors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Evento_dbo_Estilo_EstiloID" Association="Self.FK_dbo_Evento_dbo_Estilo_EstiloID">
+            <End Role="Estilo" EntitySet="Estiloes" />
+            <End Role="Evento" EntitySet="Eventoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Evento_dbo_Rama_RamaID" Association="Self.FK_dbo_Evento_dbo_Rama_RamaID">
+            <End Role="Rama" EntitySet="Ramas" />
+            <End Role="Evento" EntitySet="Eventoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Prueba_dbo_Evento_EventoID" Association="Self.FK_dbo_Prueba_dbo_Evento_EventoID">
+            <End Role="Evento" EntitySet="Eventoes" />
+            <End Role="Prueba" EntitySet="Pruebas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Heat_dbo_Prueba_PruebaID" Association="Self.FK_dbo_Heat_dbo_Prueba_PruebaID">
+            <End Role="Prueba" EntitySet="Pruebas" />
+            <End Role="Heat" EntitySet="Heats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DescalificacionesFMNModelStoreContainer" CdmEntityContainer="DescalificacionesFMNEntities">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="CategoriaID" ColumnName="CategoriaID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competencias">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Competencia">
+              <MappingFragment StoreEntitySet="Competencia">
+                <ScalarProperty Name="CompetenciaID" ColumnName="CompetenciaID" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Sede" ColumnName="Sede" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descalificacions">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Descalificacion">
+              <MappingFragment StoreEntitySet="Descalificacion">
+                <ScalarProperty Name="DescalificacionID" ColumnName="DescalificacionID" />
+                <ScalarProperty Name="CodigoFINA1" ColumnName="CodigoFINA1" />
+                <ScalarProperty Name="CodigoFINA2" ColumnName="CodigoFINA2" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EstiloID" ColumnName="EstiloID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estiloes">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Estilo">
+              <MappingFragment StoreEntitySet="Estilo">
+                <ScalarProperty Name="EstiloID" ColumnName="EstiloID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Eventoes">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Evento">
+              <MappingFragment StoreEntitySet="Evento">
+                <ScalarProperty Name="EventoID" ColumnName="EventoID" />
+                <ScalarProperty Name="Distancia" ColumnName="Distancia" />
+                <ScalarProperty Name="RamaID" ColumnName="RamaID" />
+                <ScalarProperty Name="CategoriaID" ColumnName="CategoriaID" />
+                <ScalarProperty Name="EstiloID" ColumnName="EstiloID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Heats">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Heat">
+              <MappingFragment StoreEntitySet="Heat">
+                <ScalarProperty Name="HeatID" ColumnName="HeatID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="PruebaID" ColumnName="PruebaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nadadors">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Nadador">
+              <MappingFragment StoreEntitySet="Nadador">
+                <ScalarProperty Name="NadadorID" ColumnName="NadadorID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="HeatID" ColumnName="HeatID" />
+                <ScalarProperty Name="DescalificacionID" ColumnName="DescalificacionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pruebas">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Prueba">
+              <MappingFragment StoreEntitySet="Prueba">
+                <ScalarProperty Name="PruebaID" ColumnName="PruebaID" />
+                <ScalarProperty Name="CompetenciaID" ColumnName="CompetenciaID" />
+                <ScalarProperty Name="EventoID" ColumnName="EventoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ramas">
+            <EntityTypeMapping TypeName="DescalificacionesFMNModel.Rama">
+              <MappingFragment StoreEntitySet="Rama">
+                <ScalarProperty Name="RamaID" ColumnName="RamaID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

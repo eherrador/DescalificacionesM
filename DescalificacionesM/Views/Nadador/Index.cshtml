@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DescalificacionesM.Models.Nadador>
+
+@{
+    ViewBag.Title = "Descalificación de Nadadores";
+}
+
+@*<h2>Index</h2>*@
+
+<p>
+    @Html.ActionLink("Nuevo Nadador Descalificado", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeatID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descalificacion.CodigoFINA1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeatID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descalificacion.CodigoFINA1)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.NadadorID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.NadadorID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.NadadorID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<ul data-role="listview" data-inset="true">
+    @*<li data-role="list-divider">Navigation</li>*@
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+</ul>

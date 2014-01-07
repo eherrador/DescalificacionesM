@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DescalificacionesM.Models.Heat>
+
+@{
+    ViewBag.Title = "Heats";
+}
+
+@*<h2>Index</h2>*@
+
+<p>
+    @Html.ActionLink("Nuevo Heat", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prueba.PruebaID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prueba.PruebaID)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.HeatID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.HeatID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.HeatID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<ul data-role="listview" data-inset="true">
+    @*<li data-role="list-divider">Navigation</li>*@
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+</ul>
